@@ -1,3 +1,5 @@
+package afl;
+
 public class Word {
 	private int count;
 	private String word;

@@ -1,13 +1,15 @@
+package afl;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
 public class WordCount {
-	static String filePath;
-	static ArrayList<Word> words;
-	static ArrayList<String> wordFromObjs;
-	static WordComparator c;
+	String filePath;
+	ArrayList<Word> words;
+	ArrayList<String> wordFromObjs;
+	WordComparator c;
 
 	public WordCount(String filePath) {
 		this.filePath = filePath;
@@ -16,7 +18,7 @@ public class WordCount {
 		c = new WordComparator();
 	}
 
-	public static void readFile() {
+	public void readFile() {
 		try (BufferedReader br = new BufferedReader(new FileReader(filePath)))
 		{
 			String currentLine;
@@ -39,22 +41,21 @@ public class WordCount {
 		}
 	}
 
-	public static void printWordCounts() {
-		Collections.sort(words, c);
-		for(Word word : words) {
-			System.out.println(word.getWord() + " : " + word.getCount());
-		}
+	public void printWordCounts() {
+		System.out.println(this.toString());
 	}
 
-	public static void main(String[] args) {
-		if(args.length <= 0) {
-			System.out.println("ERROR YOU NEED TO PROVIDE ARGUMENTS");
-			System.exit(0);
-		} else{
-			WordCount foo = new WordCount(args[0]);
-			foo.readFile();
-			printWordCounts();
+	public ArrayList<Word> getWords() {
+		return words;
+	}
+
+	public String toString() {
+		String str = "";
+		Collections.sort(words, c);
+		for(Word word : words) {
+			str += (word.getWord() + " : " + word.getCount() + "\n");
 		}
+		return str;
 	}
 
 	private class WordComparator implements Comparator<Word> {
