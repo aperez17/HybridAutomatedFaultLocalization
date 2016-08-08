@@ -1,8 +1,8 @@
 package afl;
 
-public class Word {
-	private int count;
-	private String word;
+public class Word implements java.io.Serializable{
+	public int count;
+	public String word;
 
 	public Word(String name){
 		this.word = name;

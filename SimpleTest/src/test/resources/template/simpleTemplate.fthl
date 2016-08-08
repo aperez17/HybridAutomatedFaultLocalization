@@ -1,0 +1,22 @@
+<html>
+<head>
+    <title>Results</title>
+</head>
+<body>
+    <h1>File: ${name}</h1>
+    <p>Here are the results from the latest run</p>
+    <table>
+        <tr>
+            <th><p>Word</p></th>
+            <th><p>Count</p></th>
+        </tr>
+        <tbody>
+            <#list words as word>
+                <tr>
+                    <td>${word.word}</td>
+                    <td>${word.count}</td>
+                </tr>
+            </#list>
+        </tbody>
+</body>
+</html>

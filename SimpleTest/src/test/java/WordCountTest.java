@@ -3,6 +3,7 @@ import afl.WordCount;
 import afl.Word;
 import java.util.ArrayList;
 import static org.junit.Assert.assertEquals;
+import freemarker.template.Template;
 public class WordCountTest {
    String filepath = "/Users/alexperez/researchProject/HybridAutomatedFaultLocalization/SimpleTest/src/test/resources/sampleFiles/simpleTest.txt";
    @Test
@@ -40,5 +41,11 @@ public class WordCountTest {
         "words : 1\n" +
         "of : 1\n" +
         "which : 1\n", simpleTxt.toString());
+   }
+
+   @Test
+   public void wordCountNameTest() {
+       WordCount simpleTxt = new WordCount(filepath);
+       assertEquals("simpleTest.txt", simpleTxt.getName());
    }
 }
