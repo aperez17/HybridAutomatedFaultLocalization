@@ -109,6 +109,26 @@ gulp.task('scripts', () =>
       // Note: Since we are not using useref in the scripts build pipeline,
       //       you need to explicitly list your scripts here in the right order
       //       to be correctly concatenated
+      // Component handler
+      './app/styles/src/mdlComponentHandler.js',
+      // Base components
+      './app/styles/src/button/button.js',
+      './app/styles/src/checkbox/checkbox.js',
+      './app/styles/src/icon-toggle/icon-toggle.js',
+      './app/styles/src/menu/menu.js',
+      './app/styles/src/progress/progress.js',
+      './app/styles/src/radio/radio.js',
+      './app/styles/src/slider/slider.js',
+      './app/styles/src/spinner/spinner.js',
+      './app/styles/src/switch/switch.js',
+      './app/styles/src/tabs/tabs.js',
+      './app/styles/src/textfield/textfield.js',
+      './app/styles/src/tooltip/tooltip.js',
+      // Complex components (which reuse base components)
+      './app/styles/src/layout/layout.js',
+      './app/styles/src/data-table/data-table.js',
+      // And finally, the ripples
+      './app/styles/src/ripple/ripple.js',
       './app/scripts/main.js'
       // Other scripts
     ])
@@ -185,7 +205,7 @@ gulp.task('serve:dist', ['default'], () =>
     // Run as an https by uncommenting 'https: true'
     // Note: this uses an unsigned certificate which on first access
     //       will present a certificate warning in the browser.
-    // https: true,
+    https: true,
     server: 'dist',
     port: 3001
   })

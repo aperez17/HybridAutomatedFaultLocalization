@@ -73,4 +73,90 @@
   }
 
   // Your custom JavaScript goes here
+  // Load the script
+  var script = document.createElement('SCRIPT');
+  script.src = 'https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js';
+  script.type = 'text/javascript';
+  document.getElementsByTagName('head')[0].appendChild(script);
+
+  // Poll for jQuery to come into existance
+  var checkReady = function(callback) {
+    if (window.jQuery) {
+      callback(window.jQuery);
+    } else {
+      window.setTimeout(function() {
+        checkReady(callback);
+      }, 100);
+    }
+  };
+
+  // Start polling...
+  checkReady(function($) {
+    /**
+    * Set up event listeners
+    **/
+    function setUpOrderListeners() {
+      console.log('foobarbaz');
+      $('th', '#results').on('click', function() {
+        var table = $('table', '#results').eq(0);
+        var rows = table.find('tr:gt(0)').toArray()
+          .sort(comparer($(this).index()));
+        this.asc = !this.asc;
+        $('th').removeClass('mdl-data-table__header--sorted-ascending');
+        $('th').removeClass('mdl-data-table__header--sorted-descending');
+        if (!this.asc) {
+          $(this).addClass('mdl-data-table__header--sorted-ascending');
+          rows = rows.reverse();
+        } else if (this.asc) {
+          $(this).addClass('mdl-data-table__header--sorted-descending');
+        }
+        for (var i = 0; i < rows.length; i++) {
+          table.append(rows[i]);
+        }
+      });
+
+      /**
+      * Used to compare stuff
+      * @param {index} index the string
+      * @return {Boolean} a > b
+      **/
+      function comparer(index) {
+        return function(a, b) {
+          var valA = getCellValue(a, index);
+          var valB = getCellValue(b, index);
+          return $.isNumeric(valA) &&
+            $.isNumeric(valB) ? valA - valB : valA.localeCompare(valB);
+        };
+      }
+
+      /**
+      * @param {row} row being jquery row
+      * @param {index} index of row
+      * @return {row} updated row
+      **/
+      function getCellValue(row, index) {
+        return $(row).children('td').eq(index).html();
+      }
+    }
+
+    $('#resultTab').on('click', function(event) {
+      event.preventDefault();
+      $('#results').load('/views/results.html', function() {
+        setUpOrderListeners();
+      });
+      $('#results').filter('div')
+        .show()
+        .addClass('isactive');
+      $('#overview').hide();
+      $('#overview').removeClass('isactive');
+    });
+
+    $('#overview').on('click', function(event) {
+      event.preventDefault();
+      $('#overview').show();
+      $('#overview').addClass('isactive');
+      $('#results').removeClass('isactive');
+      $('#results').hide();
+    });
+  });
 })();

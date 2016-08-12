@@ -10,6 +10,8 @@ import freemarker.cache.FileTemplateLoader;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.io.FileOutputStream;
+import java.io.BufferedWriter;
 import java.io.Writer;
 import java.util.Map;
 
@@ -31,7 +33,21 @@ public class CreateTemplate {
     }
 
     public void createOutput(WordCount words, String resourceFolder) {
-        Writer out = new OutputStreamWriter(System.out);
+        Writer out = null;
+        FileOutputStream fop = null;
+
+        File file = new File(resourceFolder + "/../../../build/output/results.html");
+
+		try {
+			// if file doesn't exists, then create it
+			if (!file.exists()) {
+				file.createNewFile();
+			}
+            fop = new FileOutputStream(file);
+            out = new BufferedWriter(new OutputStreamWriter(fop, "utf-8"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
         CreateDataModel dataModel = new CreateDataModel(words);
         Map<String, Object> root = dataModel.getRoot();
         if(temp == null){
@@ -43,6 +59,9 @@ public class CreateTemplate {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+        if(out != null) {
+        try {out.close();fop.close();} catch (Exception ex) {/*ignore*/}
         }
     }
 }

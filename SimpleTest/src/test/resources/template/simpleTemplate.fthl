@@ -3,20 +3,27 @@
     <title>Results</title>
 </head>
 <body>
-    <h1>File: ${name}</h1>
-    <p>Here are the results from the latest run</p>
-    <table>
-        <tr>
-            <th><p>Word</p></th>
-            <th><p>Count</p></th>
-        </tr>
-        <tbody>
-            <#list words as word>
-                <tr>
-                    <td>${word.word}</td>
-                    <td>${word.count}</td>
-                </tr>
-            </#list>
-        </tbody>
+    <div class="container">
+        <section class="styleguide__table">
+            <h1 class="subsection-title">File: ${name}</h1>
+            <h3>Here are the results from the latest run</h3>
+            <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+                <thead>
+                    <tr>
+                        <th class="mdl-data-table__cell--non-numeric">Word</th>
+                        <th class="mdl-data-table__cell--non-numeric">Count</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <#list words as word>
+                        <tr>
+                            <td class="mdl-data-table__cell--non-numeric">${word.word}</td>
+                            <td>${word.count}</td>
+                        </tr>
+                    </#list>
+                </tbody>
+            </table>
+        </section>
+    </div>
 </body>
 </html>
