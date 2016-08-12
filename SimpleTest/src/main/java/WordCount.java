@@ -5,11 +5,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
-public class WordCount {
-	String filePath;
-	ArrayList<Word> words;
-	ArrayList<String> wordFromObjs;
-	WordComparator c;
+public class WordCount implements java.io.Serializable{
+	private String filePath;
+	public ArrayList<Word> words;
+	private ArrayList<String> wordFromObjs;
+	private WordComparator c;
 
 	public WordCount(String filePath) {
 		this.filePath = filePath;
@@ -64,5 +64,10 @@ public class WordCount {
 	    public int compare(Word word1, Word word2) {
 	        return word2.getCount() - word1.getCount();
 	    }
+	}
+
+	public String getName() {
+		String[] filePathArr =  filePath.split("/");
+		return filePathArr[filePathArr.length - 1];
 	}
 }
